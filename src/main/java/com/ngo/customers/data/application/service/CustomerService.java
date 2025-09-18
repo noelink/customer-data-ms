@@ -18,4 +18,9 @@ public class CustomerService implements CustomerUseCase {
     public List<CustomerData> getAllCustomers(int page, int size) {
         return customerRepository.getAllCustomers(page, size);
     }
+
+    @Override
+    public CustomerData fetchCustomer(String id) {
+        return customerRepository.fetchCustomer(id).get();
+    }
 }

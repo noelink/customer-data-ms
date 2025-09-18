@@ -3,11 +3,13 @@ package com.ngo.customers.data.infrastructure.repository;
 import com.ngo.customers.data.application.port.out.CustomerRepositoryPort;
 import com.ngo.customers.data.domain.model.CustomerData;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -42,5 +44,16 @@ public class SnowflakeCustomerRepository implements CustomerRepositoryPort {
         int offset = (page - 1) * pageSize;
         String sql = "SELECT * FROM CUSTOMER ORDER BY C_CUSTOMER_SK LIMIT ? OFFSET ?";
         return jdbcTemplate.query(sql, rowMapper, pageSize, offset);
+    }
+
+    @Override
+    public Optional<CustomerData> fetchCustomer(String id) {
+        String sql = "SELECT * FROM CUSTOMER WHERE C_CUSTOMER_ID = ?";
+        try {
+            CustomerData customer = jdbcTemplate.queryForObject(sql, rowMapper, id);
+            return Optional.ofNullable(customer);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 }

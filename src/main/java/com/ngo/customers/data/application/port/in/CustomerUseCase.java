@@ -7,4 +7,5 @@ public interface CustomerUseCase {
 
     List<CustomerData> getAllCustomers(int page, int size);
 
+    CustomerData fetchCustomer(String id);
 }
