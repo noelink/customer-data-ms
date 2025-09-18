@@ -1,6 +1,7 @@
 package com.ngo.customers.data.application.service;
 
 import com.ngo.customers.data.application.port.in.CustomerUseCase;
+import com.ngo.customers.data.application.port.out.CustomerRepositoryPort;
 import com.ngo.customers.data.domain.model.CustomerData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerService implements CustomerUseCase {
 
+    private final CustomerRepositoryPort customerRepository;
+
     @Override
     public List<CustomerData> getAllCustomers(int page, int size) {
-        return List.of();
+        return customerRepository.getAllCustomers(page, size);
     }
 }

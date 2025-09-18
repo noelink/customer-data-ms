@@ -40,7 +40,7 @@ public class SnowflakeCustomerRepository implements CustomerRepositoryPort {
     public List<CustomerData> getAllCustomers(int page, int pageSize) {
         //revisar si esta bien este offset de mi consultaa snowflake
         int offset = (page - 1) * pageSize;
-        String sql = "SELECT * FROM C_CUSTOMER ORDER BY C_CUSTOMER_SK LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM CUSTOMER ORDER BY C_CUSTOMER_SK LIMIT ? OFFSET ?";
         return jdbcTemplate.query(sql, rowMapper, pageSize, offset);
     }
 }
