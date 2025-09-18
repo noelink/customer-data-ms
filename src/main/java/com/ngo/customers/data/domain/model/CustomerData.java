@@ -27,5 +27,4 @@ public class CustomerData {
     private String login;
     private String emailAddress;
     private String lastReviewDate;
-
 }

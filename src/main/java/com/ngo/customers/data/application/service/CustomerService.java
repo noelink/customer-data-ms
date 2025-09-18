@@ -2,6 +2,7 @@ package com.ngo.customers.data.application.service;
 
 import com.ngo.customers.data.application.port.in.CustomerUseCase;
 import com.ngo.customers.data.application.port.out.CustomerRepositoryPort;
+import com.ngo.customers.data.domain.model.CustomerAddressData;
 import com.ngo.customers.data.domain.model.CustomerData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class CustomerService implements CustomerUseCase {
     }
 
     @Override
-    public CustomerData fetchCustomer(String id) {
+    public CustomerAddressData fetchCustomer(String id) {
         return customerRepository.fetchCustomer(id).get();
     }
 }

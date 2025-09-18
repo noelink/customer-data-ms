@@ -1,10 +1,11 @@
 package com.ngo.customers.data.adapter.controllers.in;
 
 import com.ngo.customers.data.application.port.in.CustomerUseCase;
+import com.ngo.customers.data.domain.model.CustomerAddressData;
 import com.ngo.customers.data.domain.model.CustomerData;
+import com.ngo.customers.data.infrastructure.messaging.CustomerKafkaProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerUseCase customerUseCase;
+    private final CustomerKafkaProducer producer;
 
     @GetMapping("/customers")
     public ResponseEntity<List<CustomerData>> retrieveCustomerData(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size){
@@ -24,9 +26,10 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/fetch/{id}")
-    public ResponseEntity<CustomerData> fetchCustomer(@PathVariable String id){
-        CustomerData customer = customerUseCase.fetchCustomer(id);
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+    public ResponseEntity<CustomerAddressData> fetchCustomer(@PathVariable String id){
+        CustomerAddressData customerAddressData = customerUseCase.fetchCustomer(id);
+        producer.sendCustomer(customerAddressData);
+        return new ResponseEntity<>(customerAddressData, HttpStatus.OK);
     }
 
 }

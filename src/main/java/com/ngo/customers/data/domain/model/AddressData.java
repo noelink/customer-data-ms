@@ -7,13 +7,10 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class Address {
-
+public class AddressData {
     private String street;
     private String number;
     private String city;
     private String state;
     private String country;
-
-
 }
