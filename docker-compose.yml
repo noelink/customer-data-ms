@@ -37,6 +37,8 @@ services:
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_DATA_MONGODB_URI: mongodb://admin:admin123@mongo:27017/customer-db?authSource=admin
+    env_file:
+      - .env
     depends_on:
       - kafka
       - mongo
