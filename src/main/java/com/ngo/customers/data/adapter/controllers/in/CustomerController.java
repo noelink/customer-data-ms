@@ -32,4 +32,10 @@ public class CustomerController {
         return new ResponseEntity<>(customerAddressData, HttpStatus.OK);
     }
 
+    @GetMapping("/customers/mongo")
+    public ResponseEntity<List<CustomerAddressData>> fetchCustomerFromMongo(){
+        List<CustomerAddressData> customerAddressDataList = customerUseCase.fetchCustomerFromMongo();
+        return new ResponseEntity<>(customerAddressDataList, HttpStatus.OK);
+    }
+
 }

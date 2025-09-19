@@ -9,4 +9,6 @@ public interface CustomerUseCase {
     List<CustomerData> getAllCustomers(int page, int size);
 
     CustomerAddressData fetchCustomer(String id);
+
+    List<CustomerAddressData> fetchCustomerFromMongo();
 }
